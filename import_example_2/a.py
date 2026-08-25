@@ -1,0 +1,4 @@
+import b 
+
+
+b.greet()
