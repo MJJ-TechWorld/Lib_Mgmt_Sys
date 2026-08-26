@@ -1,4 +1,4 @@
-Student_ID,Name,Course,City,Fees,Marks,Attendance_Percent,Status
+Student_ID,Named,Course,City,Fees,Marks,Attendance_Percent,Status
 1001,Aarav Sharma,Python,Pune,15000,88,92,Active
 1002,Riya Mehta,Data Science,Mumbai,18000,91,95,Active
 1003,Kabir Singh,Python,Delhi,15000,76,84,Active
