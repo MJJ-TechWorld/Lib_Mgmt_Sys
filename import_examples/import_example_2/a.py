@@ -1,4 +1,2 @@
 import b 
-
-
 b.greet()
