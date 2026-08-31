@@ -1,0 +1,11 @@
+Aditya : Sir, Python mein a = b = [] karne par dono variables same list ko point karte hain,
+lekin a = [] aur b = [] karne par alag objects bante hain. 
+Python ye decide kaise karta hai?”
+Arif : doubt : sir kal ka max and min columnn and rows explain karo na with examples
+
+dhyan: vs code me har program me pip install kuch karna padega ya 1 bar karke import kar sakte hai?
+Prathmesh : oubt: sir colorama mei init mei if autoreset is off toh ek bar Fore.RED kiya toh woh last tak valid rahega na
+
+Aditya G : Sir Python madhye shallow copy ani deep copy madhla exact difference kay ahe? Nested list copy kelyavar shallow copy madhe changes original list madhe ka reflect hotat?
+
+Tanay : Sir jab hum for ex pip install colorama karte hai to jaise coloroma ke alag alag type dikhte hai jab pipy pe dekhte hai to...par jab hum vs mein pip install colorama karte hai to saare types install hote hai ya popular wale??
