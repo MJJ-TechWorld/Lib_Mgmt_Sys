@@ -1,2 +1,2 @@
-1, meluha, Amish, 4 
-2, Atomic Habits, Sharma, 5 
+1, Meluha, Sanky, 4 
+2, Harry, JK, 3 
