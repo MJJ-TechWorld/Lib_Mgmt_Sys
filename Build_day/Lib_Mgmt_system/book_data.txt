@@ -1,2 +1,2 @@
-1, Meluha, Sanky, 4 
-2, Harry, JK, 3 
+1, Meh, Amr, 10 
+2, Harry, JK, 20 

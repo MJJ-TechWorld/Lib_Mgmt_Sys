@@ -1,6 +1,12 @@
 import colorama
 from colorama import Fore, Back, Style, init
+from datetime import datetime
+import os
 
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+              
 def menu():
     init(autoreset=True)
     print(Fore.CYAN + '''╔══════════════════════════════════════════════╗
@@ -15,16 +21,54 @@ def menu():
 5. Issue Book
 6. Exit''')
     
+#Initialization
 
 def read_book():
     """This is a function to merely read contents iof a file  """
+    try:
+        with open("book_data.txt", "r") as f:
+            book_data = f.readlines()
+        return book_data
+        
+    except FileNotFoundError:    
+        book_data = []
+        return book_data
 
-    with open("book_data.txt", "r") as f:
-        book_data = f.readlines()
-    return book_data
+
+
 def view_book():
-    book_data = read_book()
-    #HomeWork
+    book_data = read_book()    
+    if len(book_data) == 0:
+        print(Fore.RED + "There is no Book in DataBase to View")
+    else:
+        for i in book_data:
+            i = i.replace("\n", "")
+            i = i.split()
+            print(Fore.CYAN + f"Book Id : {i[0]} Book Name : {i[1]}  Book Author : {i[2]} Book_Quantity : {i[-1]} ")
+
+def search_book(param):
+    book_data = read_book() 
+    if len(book_data) == 0:
+       print(Fore.RED + "There is no Book in DataBase to Search")
+    else:
+       for i in book_data:
+            i = i.replace("\n", "")
+            i = i.split()
+            if param.isdigit():
+                # print(f"{i[0]} --> {type(i[0])}")
+                # print(param, type(param))
+                if i[0] == param + ",":
+                   print("\n\n")
+                   print(Fore.CYAN + f"Book Id : {i[0]} Book Name : {i[1]}  Book Author : {i[2]} Book_Quantity : {i[-1]} ")
+                   return i
+            else:
+                if i[1].lower() == param.lower() + ",":
+                    print("\n\n")
+                    print(Fore.CYAN + f"Book Id : {i[0]} Book Name : {i[1]}  Book Author : {i[2]} Book_Quantity : {i[-1]} ")
+                    return i
+
+
+
 
 #docstring
 def add_book():
@@ -65,26 +109,31 @@ def add_book():
     with  open("book_data.txt", "a") as f:
         f.write(f"{book_id}, {book_name}, {book_author}, {book_quantity} \n")
     
+def issue_book():
+    user_id = input("Enter a user id ")
+    #User Exists or NOt Homework 
+    val = input("Enter either a book id or a Book name :: ")
+    book_details = search_book(val)
+    quantity = input("Enter Quantity :: ")
+    print(f"For the User {user_id} book {book_details[1]} has been issued on {datetime.now().strftime("%d-%m-%Y")}")
 
-
-
-
-   
 
 if __name__ == "__main__" :
     while True:
-        menu()        
+        menu() 
+        clear_screen()       
         choice = input("Enter your choice between 1 to 6 :: ")
         if choice == "1":
             add_book()
         elif choice == "2":
-            print("View Book")
+            view_book()
         elif choice == "3":
-            pass
+            val = input("Enter either a book id or a Book name :: ")
+            search_book(val)
         elif choice == "4":
             pass
         elif choice == "5":
-            pass
+            issue_book()
         elif choice == "6":
             print(Fore.CYAN + "Thank You for using our System, Visit Again")
             break
