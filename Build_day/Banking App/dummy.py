@@ -1,0 +1,39 @@
+# import os
+
+# var = os.path.exists(r"C:\Users\Sanky\Desktop\training_Python_batch1\Build_day\Banking App\bank_record.xlsx")
+
+# print(var)
+
+
+
+
+# if not (1 == 1): #if not (True) #if False
+#     print("ok")
+# else:
+#     print("NOk")
+
+
+from rich.console import Console 
+
+
+console = Console()
+
+print("Login Successful")
+
+console.print("[bold green]Login Successful[/bold green]")
+console.print("[cyan]Current Balance: ₹5000[/cyan]")
+
+
+
+from pyfiglet import figlet_format
+var = figlet_format("ABC BANK", font="slant")
+
+console.print(f"[green]{var}[/green]")
+
+
+import emoji
+
+print(emoji.emojize(":bank:"))
+print(emoji.emojize(":credit_card:"))
+print(emoji.emojize(":money_bag:"))
+print(emoji.emojize(":dollar:"))
