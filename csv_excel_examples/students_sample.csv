@@ -1,0 +1,21 @@
+Student_ID,Named,Course,City,Fees,Marks,Attendance_Percent,Status
+1001,Aarav Sharma,Python,Pune,15000,88,92,Active
+1002,Riya Mehta,Data Science,Mumbai,18000,91,95,Active
+1003,Kabir Singh,Python,Delhi,15000,76,84,Active
+1004,Sneha Patil,AI/ML,Pune,22000,94,97,Active
+1005,Arjun Nair,Web Development,Bengaluru,16000,69,78,Active
+1006,Ishita Verma,Data Science,Delhi,18000,85,89,Active
+1007,Vihaan Joshi,Python,Nagpur,15000,72,81,Active
+1008,Ananya Rao,AI/ML,Hyderabad,22000,89,94,Active
+1009,Aditya Kulkarni,Web Development,Pune,16000,81,87,Active
+1010,Meera Iyer,Python,Chennai,15000,96,98,Active
+1011,Rahul Deshmukh,Data Science,Nashik,18000,64,74,Active
+1012,Sara Khan,AI/ML,Mumbai,22000,87,91,Active
+1013,Dev Malhotra,Python,Delhi,15000,58,68,Inactive
+1014,Nisha Gupta,Web Development,Jaipur,16000,79,83,Active
+1015,Omkar Jadhav,Data Science,Pune,18000,92,96,Active
+1016,Tanya Bose,AI/ML,Kolkata,22000,73,80,Active
+1017,Yash Bhat,Python,Bengaluru,15000,84,90,Active
+1018,Pooja Mishra,Web Development,Lucknow,16000,67,75,Inactive
+1019,Karan Shah,Data Science,Ahmedabad,18000,90,93,Active
+1020,Neha Kapoor,AI/ML,Delhi,22000,82,88,Active

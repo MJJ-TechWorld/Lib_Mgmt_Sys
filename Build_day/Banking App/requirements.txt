@@ -1,0 +1,6 @@
+openpyxl
+rich
+pyfiglet
+emoji
+getpass
+pwinput
