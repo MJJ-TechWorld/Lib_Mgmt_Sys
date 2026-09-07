@@ -1,8 +1,0 @@
-print(Fore.BLACK + "This is red text!")
-print("Test 1")
-#print(Back.GREEN + "This text has a green background!")
-print("Test 2")
-print(Style.BRIGHT + Fore.YELLOW + "This is bright yellow text!")
-print(Fore.YELLOW + "This is bright yellow text!")
-print("Test 3")
-#print(Fore.PURPLE + "This text is completely back to normal.")

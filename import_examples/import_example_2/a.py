@@ -1,2 +1,0 @@
-import b 
-b.greet()
