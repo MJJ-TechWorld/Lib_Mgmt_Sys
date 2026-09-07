@@ -88,9 +88,8 @@ if a == 1 and b == 1 and c == 1 and d == 1:
         rows = []
         for row in data:
             if row[0] == emp_id and row[3] == emp_mob_no:
-                row[4] = username
-                row[5] = password
-                row.append(row)
+                fn,ln,pn = row[1],row[2],row[3]
+                row = 
 
         f.seek(0)
         writer = csv.writer(f)

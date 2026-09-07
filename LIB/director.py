@@ -19,11 +19,16 @@ from rich.console import Console
 from rich.table import Table
 from rich.progress import track
 
-from main import books_data_path,users_data_path,empls_data_path,credt_data_path
+from main import books_data_path,users_data_path,credt_data_path
 
 #------------------------------------------------
 # PROGRAM STARTS FROM HERE :
 #------------------------------------------------
+
+def create_employees_data():
+    with open("empls_data_path", "a", newline="\n") as f:
+        writer = csv.writer(f)
+        writer.writerow(["emp id","first name","last name","phone number","use","pass","access"])
 
 def add_new_employee():
 
@@ -69,6 +74,9 @@ def add_new_employee():
 
     if d == 1:
 
+        if not os.path.exists(empls_data_path):
+            create_employees_data()
+
         with open(empls_data_path, "r") as f:
             data = csv.reader(f)
             next(data)
@@ -84,6 +92,9 @@ def add_new_employee():
 
         with open(credt_data_path, "a") as f:
             f.write(f"{new_emp_id} {usecode}\n")
+
+        if not os.path.exists(empls_data_path):
+            create_employees_data()
 
         with open(empls_data_path, "a", newline="\n") as file:
             write = csv.writer(file)
