@@ -28,7 +28,7 @@ init(autoreset=True)
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment,Font,Border,Side
 from datetime import datetime, timedelta
-from Login import underline,login_title,interface_title
+from Login import underline,login_title,interface_title,instruction
 from second import check_stock,check_avail_book,check_author_name,check_book_name,check_genre_book,check_publish_date
 #------------------------------------------------
 # Declaring some variables regarding colors and program:
@@ -134,6 +134,8 @@ def check_password(u,p):
         print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
  
 #------------------------------------------------
+
+
 def display_actions():
     """
     Displays actions to be proceed by taking option number as input in str.
@@ -147,12 +149,12 @@ def display_actions():
     print(f"\t{noerror_color}1. Check available books in library")
     print(f"\t{noerror_color}2. Check stock of existing books with less copies left ")
     print(f"\t{noerror_color}3. Add new employee")
-    print(f"\t{noerror_color}4. Grant access to existing employee \n")
-    print(f"\t{noerror_color}5. Revoke access from existing employee \n")
-    print(f"\t{noerror_color}6. Give any notice to circulation assistant \n")
-    print(f"\t{noerror_color}7. Give any notice to cataloguer \n")
-    print(f"\t{noerror_color}8. Give subscription to members \n")
-    print(f"\t{noerror_color}9. Remove subscription of members \n")
+    print(f"\t{noerror_color}4. Grant access to existing employee ")
+    print(f"\t{noerror_color}5. Revoke access from existing employee ")
+    print(f"\t{noerror_color}6. Give any notice to circulation assistant ")
+    print(f"\t{noerror_color}7. Give any notice to cataloguer ")
+    print(f"\t{noerror_color}8. Give subscription to members ")
+    print(f"\t{noerror_color}9. Remove subscription of members ")
     print(f"\t{noerror_color}10. Change renting interest of all books of library\n")
 
     while True:
@@ -213,16 +215,16 @@ def display_actions():
             print(f"\n{error_color} ⚠️ Please Enter Correct Option Number (ex. 1 or 2)!\n")
 
 
-def actual_program():
+
+def after_login_display():
     interface_title()
+    instruction()
     display_actions()
 
-def login():
+def start_program():
     login_title()
-    result = login_display()
-    if result == "1":
-        actual_program()
-
+    if login_display() == 1:
+        after_login_display()
 
 #------------------------------------------------
 #   ) Fn to display actions' options :
@@ -405,6 +407,7 @@ def grant_revoke_access(result):
 
 def change_rate():
     while True:
+
         print(decor2)
         rate = input("Enter at which interest should books be rented in library : ")
 
@@ -448,6 +451,19 @@ def notice_2():
     with open(notice_path_2, "a") as f:
         f.write(f"{notice}\n")
 
+
+start_program()
+
+# def after_login_display():
+#     interface_title()
+#     instruction()
+#     notice(notice_path_2)
+#     display_actions()
+
+# def start_program():
+#     login_title()
+#     if login_display() == 1:
+#         after_login_display()
 
 
 # add_employee()

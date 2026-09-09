@@ -13,6 +13,8 @@ emp_data_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Emplo
 books_data_path = r"C:\Users\HP\Desktop\training\Python\books_store\books_copy.xlsx"
 data_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Data.xlsx"
 pre_mem_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Pre_members_info.csv"
+notice_path_2 = r"C:\Users\HP\Desktop\training\Python\library\Library_Data\Notice2.txt"
+
 
 #-----------------------------------------------
 # Import some important libraries : 
@@ -26,7 +28,7 @@ init(autoreset=True)
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment,Font,Border,Side
 from datetime import datetime, timedelta
-from Login import underline,display_genres,check_author_name,check_book_name,check_genre_book,check_publish_date
+from Login import underline,login_title,interface_title,display_genres,check_author_name,check_book_name,check_genre_book,check_publish_date,notice,instruction,exitp,backp
 #------------------------------------------------
 # Declaring some variables regarding colors and program:
 #------------------------------------------------
@@ -44,7 +46,94 @@ filecloseerror = f"{decor1}{error_color}Please ensure that you have closed books
 genres_code = ["MYTH", "CRIMYS", "ROMNC", "BIOGR", "HIS", "NOV", "ECOCIV", "POET", "POLYSC", "MOTV"]
 align_centre = Alignment(horizontal='center', vertical='center')
 
+#------------------------------------------------
+#  2) Fn for displaying and checking login details:
+#------------------------------------------------
 
+def login_display():
+    """
+    Take inputs as username & password one by one
+    Check whether they are correct or not
+    If not, it asks forever, else logged to main interface.
+    """
+
+    a = 0 # Initializing
+    global username, password
+    login_title = "--- LOGIN PORTAL ---"
+    print(info_color + "="*100)
+    print(Fore.CYAN + f"\n{login_title:^101}\n")
+    print(info_color + "*"*100 + "\n\n")
+
+    while True:
+        print(decor2)
+        username = input(text_color + "Enter Your Username : ").strip()
+
+        if check_username(username) == "yes": 
+            while True:
+                print(decor2)
+                password = input(text_color + "Enter Your Password : ").strip()
+
+                if check_password(username,password) == "yes":
+                    a = 1
+                    print(decor3)
+                    break
+            break
+    return a
+#------------------------------------------------
+
+def check_username(u):
+    """
+    Check the username whether it is in record or not.
+    Parameters: u : Username of employee who have access to this program.
+    Returns: str: "yes" for correct username, "no" for wrong username. 
+    """
+    try:
+        with open(emp_data_path, "r") as f:
+            data = csv.reader(f)
+            next(data)
+            for row in data:
+                if (row and row[1] == u and "c" in row[5]):
+                    print(f"\n{noerror_color}✅ Username Found \n")
+                    return "yes"
+                
+            print(f"\n{error_color}⚠️  Invalid Username \n")
+        
+    except FileNotFoundError:
+        print(Fore.RED + Style.BRIGHT + "\n⚠️ Please ensure that you had also cloned 'Library Data' folder from program link ⚠️")
+        print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
+
+#------------------------------------------------
+
+def check_password(u,p): 
+    """
+    Check the password whether it is in record with accordance with its username or not.
+    
+    Takes username & password as parameters and check accordingly.
+
+    Args:
+        u : Username of employee who have access to this program.
+        p : Password of employee with registered username as well.
+
+    Returns:
+        str: "yes" for correct password, "no" for incorrect password.
+    """
+    try: 
+        with open(emp_data_path, "r") as file:
+            data = csv.reader(file)
+            next(data)
+            for row in data:
+                if (row and len(row)>1 and row[1] == u  and row[2] == p):
+                    print(f"\n{noerror_color}✅  Logged in successfully! \n")
+                    return "yes"
+
+            print(f"\n{error_color}⚠️  Wrong Password \n")
+        
+    except FileNotFoundError:
+        print(Fore.RED + Style.BRIGHT + "\n⚠️ Please ensure that you had also cloned 'Library Data' folder from program link ⚠️")
+        print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
+
+
+ 
 #------------------------------------------------
 #   ) Fn to display actions' options :
 #------------------------------------------------
@@ -289,4 +378,16 @@ def check_stock():
                     print(f"{info_color}{row[1].value}  {row[2].value}  By {row[3].value}  Avail : {row[7].value}")
 
 
-display_actions()
+def after_login_display():
+    interface_title()
+    instruction()
+    notice(notice_path_2)
+    display_actions()
+
+def start_program():
+    login_title()
+    if login_display() == 1:
+        after_login_display()
+
+if __name__ == "__main__":
+    start_program()
