@@ -310,8 +310,8 @@ def display_actions():
     print(f"{info_color}{underline('Available actions')} : \n")
     print(f"\t{noerror_color}1. Search for Unique Code of Book(s) ?")
     print(f"\t{noerror_color}2. Rent Book(s) for rental customers?")
-    print(f"\t{noerror_color}3. Rent Book(s) for premium members? \n")
-    print(f"\t{noerror_color}4. Return Book(s) of rental customers? \n")
+    print(f"\t{noerror_color}3. Rent Book(s) for premium members? ")
+    print(f"\t{noerror_color}4. Return Book(s) of rental customers? ")
     print(f"\t{noerror_color}5. Return Book(s) of premium members? \n")
 
     while True:
@@ -739,7 +739,7 @@ def bill_printer(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
     print(d,Fore.YELLOW + "="*108,d, sep = "")
 
     for i in range(len(cl)):
-        print(f"{d} {i+1:^3}.{d} {cl[i]:^12}{d}{bl[i]:^36}{d}{al[i]:^25}{d}{Cl[i]:^9}{d}{tl[i]:^6}{d}{t[i]:^7} {d}")
+        print(f"{d} {i+1:^3}.{d} {cl[i]:^12}{d}{bl[i][:36]:^36}{d}{al[i][:25]:^25}{d}{Cl[i][:9]:^9}{d}{tl[i]:^6}{d}{t[i]:^7} {d}")
 
     
     print(d,Fore.YELLOW + " "*108,d, sep = "")
@@ -875,9 +875,9 @@ def return_books(m):
             print(decor2)
             phone_number = input(text_color + "Enter Phone Number From above table : ")
 
-            if ( int(phone_number) == pn):
+            if ( int(phone_number) == int(pn)):
                 print(decor2)
-                print(f"{info_color} Books remaining to be returned : \n")
+                print(f"\n{info_color} Books remaining to be returned : \n")
                 wd = load_workbook(data_path, data_only=False)
                 sheet = wd[m]
                 for row in sheet.iter_rows(min_row=2):
@@ -921,7 +921,6 @@ def return_books(m):
 
                 break
             else:
-                print(pn)
                 print(f"\n{error_color}⚠️ Invalid phone number \n")
 
 

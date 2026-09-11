@@ -10,7 +10,7 @@
 # Please change the default path of "Data.txt" to the actual path where you have saved "Data.txt" file -
 
 emp_data_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Employee_details.csv"
-books_data_path = r"C:\Users\HP\Desktop\training\Python\books_store\books_copy.xlsx"
+books_data_path = r"C:\Users\HP\Desktop\training\Python\library\Library_Data\Books_Data.xlsx"
 data_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Data.xlsx"
 pre_mem_path = r"C:\Users\HP\Desktop\training\Python\Library\Library_Data\Pre_members_info.csv"
 notice_path_2 = r"C:\Users\HP\Desktop\training\Python\library\Library_Data\Notice2.txt"
@@ -148,12 +148,11 @@ def display_actions():
         None
     """
     print(f"{info_color}{underline('Available actions')} : \n")
-    print(f"\t{noerror_color}1. Check Stock Balance \n")
-    print(f"\t{noerror_color}2. Check availability of Book(s) ?")
-    print(f"\t{noerror_color}3. Add new genre in data?")
-    print(f"\t{noerror_color}4. Add new books in existing genres? \n")
-    print(f"\t{noerror_color}5. Add more copies of existing books? \n")
-    print(f"\t{noerror_color}6. Return Book(s) of premium members? \n")
+    print(f"\t{noerror_color}1. Check Stock Balance ")
+    print(f"\t{noerror_color}2. Check availability of Book(s) ")
+    print(f"\t{noerror_color}3. Add new genre in data")
+    print(f"\t{noerror_color}4. Add new books in existing genres ")
+    print(f"\t{noerror_color}5. Add more copies of existing books \n")
 
     while True:
         print(decor2)
@@ -182,11 +181,6 @@ def display_actions():
         if sel_option == "5":
             print(decor2)
             add_more_exist_book()
-            break
-
-        if sel_option == "6":
-            print(decor2)
-            
             break
 
         else :
@@ -369,13 +363,22 @@ def add_more_exist_book():
     
 
 def check_stock():
-        print(Fore.BLUE + "Books with 1 or 0 quantities left : \n")
-        wb = load_workbook(books_data_path)
-        for sheet in wb.worksheets:
-            for row in sheet.iter_rows(min_row=2,values_only=False):
-                if str(row[7].value).strip() == "0" or str(row[7].value).strip() == "1":
-                    print(decor2)
-                    print(f"{info_color}{row[1].value}  {row[2].value}  By {row[3].value}  Avail : {row[7].value}")
+        while True:
+            r = 0
+            q = input(text_color + "Enter quantity of books to be checked, left in library : ").strip()
+            if q.isdigit() and int(q) >= 0:
+                print(Fore.BLUE + f"\n\nBooks with {q} or 0 quantities left : \n")
+                wb = load_workbook(books_data_path)
+                for sheet in wb.worksheets:
+                    for row in sheet.iter_rows(min_row=2,values_only=False):
+                        if str(row[7].value).strip() == str(q):
+                            print(decor2)
+                            print(f"{info_color}{row[1].value}  {row[2].value}  By {row[3].value}  Avail : {row[7].value}")
+                            r = 1
+            if r == 1:
+                break
+            else:
+                print(f"\n{error_color}⚠️ Please enter valid quantity !\n")
 
 
 def after_login_display():

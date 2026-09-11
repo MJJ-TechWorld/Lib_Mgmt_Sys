@@ -433,9 +433,11 @@ def add_pre_mem():
     cd = create_detail("new member")
     if cd[0] == 1:
         new_mem = [cd[1],cd[2],cd[3],date,"31-12-2026"]
-        with open(emp_data_path, "a", newline="\n") as f:
+        with open(premium_mem_path, "a", newline="\n") as f:
             new = csv.writer(f)
             new.writerow(new_mem)
+
+        print(f"{noerror_color}✅ New Member Added Successfully !\n")
 
 def notice_1():
     print(decor2)
