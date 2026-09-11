@@ -48,13 +48,13 @@ credt_data_path = r"C:\Users\HP\Desktop\training\Python\LIB\credentials.txt"
 #------------------------------------------------
 
 def error_message(error):
-    console.print(f"\n[bold red]⚠️ {error}[/bold red]")
+    console.print(f"\n[bold red]⚠️ {error}[/bold red]\n")
 
 def info_message(message):
     console.print(f"[cyan]{message}[/cyan]")
 
 def correct_message(message):
-    console.print(f"\n[bold cyan]✅ {message}[/bold cyan]")
+    console.print(f"\n[bold cyan]✅ {message}[/bold cyan]\n")
 
 def decor_line():
     decor = "-"*80
@@ -92,6 +92,8 @@ def progress_bar(val=1):
 
 def display_login_title():
     pass
+
+
 if __name__ == "__main__":
     pass
     # while True:
@@ -165,7 +167,7 @@ def check_by_book_name():
     while True:
         decor_line()
         value = False
-        book_name = user_input("Enter name of books : ")
+        book_name = user_input("Enter name of books : \n")
 
         wb = load_workbook(books_data_path)
         for sheet in wb.sheetnames:
@@ -188,7 +190,7 @@ def check_by_author_name():
     while True:
         decor_line()
         value = False
-        author_name = user_input("Enter author name of book : ")
+        author_name = user_input("Enter author name of book : \n")
 
         wb = load_workbook(books_data_path)
         for sheet in wb.sheetnames:
@@ -212,7 +214,7 @@ def check_by_publish_date():
         decor_line()
         value = False
         info_message("The date should be in format : dd-mm-yy \n")
-        publish_date = user_input("Enter publishing date of book : ")
+        publish_date = user_input("Enter publishing date of book : \n")
 
         wb = load_workbook(books_data_path)
         for sheet in wb.sheetnames:
@@ -258,7 +260,8 @@ def buy_book():
                 for sheet in wb.sheetnames:
                     s = wb[sheet]
                     for row in s.iter_rows(min_row=2,values_only=False):
-                        row[9].value = int(row[9].value) - int(quantity)
+                        if row[1].value == uc:
+                            row[9].value = int(row[9].value) - int(quantity)
                 wb.save(books_data_path)
 
                 while True:
@@ -274,6 +277,7 @@ def buy_book():
 
                     elif sel_option == "2":
                         pass
+                        break
 
                     else:
                         option_error()
@@ -321,16 +325,42 @@ def change_rate():
 
 
 
-print(emoji.emojize(":bank:"))
+# print(emoji.emojize(":bank:"))
+
+# wb = load_workbook(books_data_path)
+# for sheet in wb.sheetnames:
+#     s = wb[sheet]
+#     for row in s.iter_rows(min_row=2,values_only=False):
+#         if row[9].value is None:
+#             continue
+
+#         if isinstance(row[9].value, (int,float)) and row[9].value < 0:
+#             row[9].value = abs(row[9].value)
+
+#         if row[9].value < 0:
+#             row[9].value = 5
+
+#         if row[9].value == 0:
+#             row[9].value = 4
+
+#         if row[9].value == 1:
+#             row[9].value = 6
+
+#         if row[9].value == 2:
+#             row[9].value = 3
+
+# wb.save(books_data_path)
+
+
 
 decor_line()
 head_color("Actions Available :\n")
 text_color("\t1. Search book(s)")
 text_color("\t2. Buy book(s)")
 text_color("\t3. Exit")
-decor_line()
 
 while True:
+    decor_line()    
     select_option = user_input("Enter option number from options : ")
 
     if select_option == "1":
@@ -365,8 +395,3 @@ while True:
 #             break
 #         else : 
 #             print(f"\n{error_color}⚠️  Book(s) with this name Not Found ! \n")
-
-
-
-head_color("Hello World")
-text_color("Hello World")
