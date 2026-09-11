@@ -203,7 +203,7 @@ def display_actions():
 
         if sel_option == "9":
             print(decor2)
-            grant_revoke_access("r")
+            remove_pre_mem()
             break
 
         if sel_option == "10":
@@ -437,7 +437,42 @@ def add_pre_mem():
             new = csv.writer(f)
             new.writerow(new_mem)
 
-        print(f"{noerror_color}✅ New Member Added Successfully !\n")
+        print(decor2)
+        print(f"{noerror_color}✅ Data updated successfully !")
+        print(decor2)
+        
+def remove_pre_mem():
+    cd = create_detail("member")
+    if cd[0] == 1:
+        r = 0
+        with open(premium_mem_path, "r") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if str(row[2]).strip() == str(cd[3]).strip():
+                    r = 1
+                    rows = []
+                    with open(premium_mem_path, "r") as f:
+                        reader = csv.reader(f)
+                        header = next(reader)
+                        for row in reader:
+                            if str(row[2]).strip() != str(cd[3]):
+                                rows.append(row)
+
+                    with open(premium_mem_path, "w", newline="\n") as f:
+                        writer = csv.writer(f)
+                        writer.writerow(header)
+                        writer.writerows(rows)
+
+                    print(decor2)
+                    print(f"{noerror_color}✅ Data updated successfully !")
+                    print(decor2)
+
+        if r != 1:
+            print(f"\n{error_color}⚠️  Member Not Found With Phone Number Entered !\n")
+
+# first name,last name,phone number,subscription date,renewal date
+# Mayuresh,Jagtap,8591000000,11-09-2026,31-12-2026
+
 
 def notice_1():
     print(decor2)
