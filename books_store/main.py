@@ -1,0 +1,499 @@
+#----------------    BACKEND    -----------------
+
+#------------------------------------------------
+# IMPORTANTS IMPORTS FOR THIS PROGRAM
+#------------------------------------------------
+
+import openpyxl
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
+from openpyxl import load_workbook
+from openpyxl.styles import Alignment
+from rich import console
+from datetime import datetime, timedelta
+from pyfiglet import figlet_format
+
+
+import csv
+import random
+import time
+import uuid
+import os
+import emoji
+
+from getpass import getpass
+from datetime import datetime, timedelta
+from pyfiglet import figlet_format
+
+from rich.console import Console,Group
+from rich.table import Table
+from rich.text import Text
+from rich.rule import Rule
+from rich import box
+from rich.panel import Panel
+from rich.progress import track
+console = Console()
+#------------------------------------------------
+# ASSIGNING IMP PATHS TO THE VARIABLES
+#------------------------------------------------
+
+books_data_path = r"C:\Users\HP\Desktop\training\Python\books_store\books_copy.xlsx"
+users_data_path = r"C:\Users\HP\Desktop\training\Python\LIB\users_data.xlsx"
+empls_data_path = r"C:\Users\HP\Desktop\training\Python\LIB\empls_data.csv"
+credt_data_path = r"C:\Users\HP\Desktop\training\Python\LIB\credentials.txt"
+
+#------------------------------------------------
+# ASSIGNING VALUES TO IMP VARIABLES :
+#------------------------------------------------
+
+
+#------------------------------------------------
+# DEFINING IMP FUNCTIONS OF DECORATIVE STUFFS :
+#------------------------------------------------
+
+def error_message(error):
+    console.print(f"\n[bold red]⚠️ {error}[/bold red]\n")
+
+def info_message(message):
+    console.print(f"[cyan]{message}[/cyan]")
+
+def correct_message(message):
+    console.print(f"\n[bold green]✅ {message}[/bold green]\n")
+
+def decor_line():
+    decor = "-"*80
+    console.print(f"[#8A2BE2]{decor}[/#8A2BE2]")
+
+def decor1_color(message):
+    console.print(f"\n[bold underline #FFAA33]{message}[/]")
+
+def head_color(message):
+    console.print(f"\n[bold underline #FF8C00]{message}[/]")
+
+def text_color(message):
+    console.print(f"[bold #FFBF00]{message}[/]")
+
+def user_input(message):
+    return console.input(f"[#00D9FF]{message}[/]").strip()
+
+def ask_option_number():
+    message = "Enter option number to proceed further : "
+    return console.input(f"\n[#00D9FF]{message}[/]").strip()
+
+def option_error():
+    message = "Please enter valid option number from given options"
+    error_message(message)
+
+def progress_bar(val=1):
+    for _ in track(range(30), description="Processing..."):
+            time.sleep(0.1)
+
+def line(style="cyan"):
+    return Rule(style=style)
+
+#------------------------------------------------
+# PROGRAM START FROM HERE :
+#------------------------------------------------
+
+# DEFINING IMP FUNCTIONS USED IN THIS PROGRAM ---
+
+def display_login_title():
+    pass
+
+
+if __name__ == "__main__":
+    pass
+    # while True:
+    #     username = input("Enter Your Username : ")
+
+def check_username(u):
+    """
+    Check the username whether it is in record or not.
+    Parameters: u : Username of employee who have access to this program.
+    Returns: str: "yes" for correct username, "no" for wrong username. 
+    """
+
+    with open(empls_data_path, "r") as f:
+        data = csv.reader(f)
+        next(data)
+        for row in data:
+            if (row and row[1] == u and "a" in row[5]):
+                correct_message("Username Found")
+                return "yes"
+            
+        error_message("Invalid Username!")
+
+
+def check_password(u,p): 
+    """
+    Check the password whether it is in record with accordance with its username or not.
+    Takes username & password as parameters and check accordingly.
+    Args:
+        u : Username of employee who have access to this program.
+        p : Password of employee with registered username as well.
+    Returns:
+        str: "yes" for correct password, "no" for incorrect password.
+    """
+    with open(empls_data_path, "r") as file:
+        data = csv.reader(file)
+        next(data)
+        for row in data:
+            if (row and len(row)>1 and row[1] == u  and row[2] == p):
+                correct_message("Logged in successfully!\n")
+                return "yes"
+
+        error_message("Wrong Password!\n")
+
+def search_book():
+    while True:
+        decor_line()
+
+        head_color("Available ways to search book(s) Or to check Unique Code of book(s):\n")
+        text_color("\t1.By Name of Book -")
+        text_color("\t2.By Name of Author of Book -")
+        text_color("\t3.By Publishing Date of Book -\n")
+
+        sel_option = user_input("Enter option number to proceed further : ")
+
+        if sel_option == "1":
+            check_by_book_name()
+            break
+
+        if sel_option == "2":
+            check_by_author_name()
+            break
+
+        if sel_option == "3":
+            check_by_publish_date()
+            break
+
+        else:
+            error_message("Please enter valid option number from given options")
+
+def check_by_book_name():
+    while True:
+        decor_line()
+        value = False
+        book_name = user_input("Enter name of books : \n")
+
+        wb = load_workbook(books_data_path)
+        for sheet in wb.sheetnames:
+            s = wb[sheet]
+            for row in s.iter_rows(min_row=2,values_only=True):
+                if book_name in str(row[2]).strip().lower():
+                    info_message(f"{row[1]} : {row[2]} : {row[3]} : Avail {row[9]} : Price {row[7]}")
+                    decor_line()
+                    value = True
+
+        wb.save(books_data_path)
+
+        if value:
+            decor_line()
+            break
+        else:
+            error_message("Book Not Found!")
+
+def check_by_author_name():
+    while True:
+        decor_line()
+        value = False
+        author_name = user_input("Enter author name of book : \n")
+
+        wb = load_workbook(books_data_path)
+        for sheet in wb.sheetnames:
+            s = wb[sheet]
+            for row in s.iter_rows(min_row=2,values_only=True):
+                if author_name in str(row[3]).strip().lower():
+                    info_message(f"{row[1]} : {row[2]} : {row[3]} : Avail {row[9]} : Price {row[7]}")
+                    decor_line()
+                    value = True
+
+        wb.save(books_data_path)
+
+        if value:
+            decor_line()
+            break
+        else:
+            error_message("Book Not Found!")
+
+def check_by_publish_date():
+    while True:
+        decor_line()
+        value = False
+        info_message("The date should be in format : dd-mm-yy \n")
+        publish_date = user_input("Enter publishing date of book : \n")
+
+        wb = load_workbook(books_data_path)
+        for sheet in wb.sheetnames:
+            s = wb[sheet]
+            for row in s.iter_rows(min_row=2,values_only=True):
+                if publish_date in str(row[5]).strip().lower():
+                    info_message(f"{row[1]} : {row[2]} : {row[3]} : Avail {row[9]} : Price {row[7]}")
+                    decor_line()
+                    value = True
+
+        wb.save(books_data_path)
+
+        if value:
+            decor_line()
+            break
+        else:
+            error_message("Book Not Found!")
+
+def create_bill(code,bookname,author,price,quantity,total):
+
+    good_quotes = ["'Books are uniquely portable magic'",
+                "'Today a reader,tomorrow a leader'",
+                "'Read what you love until you love to read'"
+                "'There is no friend as loyal as a book'",
+                "'A book dream is a dream that you hold in your hand'"]
+    quote = random.choice(good_quotes)
+
+    Total = 0
+    for i in total:
+        Total = Total + int(i)
+    date = datetime.today().strftime('%d-%m-%Y')
+    decor_line()
+    title_box = Table(box=box.ROUNDED, border_style="#FFF3E0",style="on #2d1f0f",expand=True,show_header=False,padding=(1,1))
+    title_box.add_column(justify="center")
+    title_box.add_row(Text("📚   DIGITAL LIBRARY OF NAVI MUMBAI   📚",style="bold bright_white on #0066FF",justify="center"))
+    title_box.add_row(Text("( By MJJ-TechWorld )",style="bold #FFD700 on #1a1a1a",justify="center"))
+
+    table = Table(box=box.DOUBLE_EDGE,
+                  title_style="bold yellow",
+                  header_style="bold white on blue",
+                  border_style="bright_yellow",
+                  show_lines=True,
+                  expand=True)
+    for col in ["Sr.","Unique Code","Name Of Books","Author Name", "Price","Quantity","Total"]:
+        table.add_column(col,justify="center",style="cyan",overflow="fold")
+
+    for i in range(len(code)):
+        table.add_row(str(i+1),str(code[i]),str(bookname[i]),str(author[i]),str(price[i]),str(quantity[i]),str(total[i]))
+
+    content = Group(
+        title_box,
+        line("bright_cyan"),
+        line("bright_magenta"),
+        Text(f"Date : {date}", style="cyan", justify="right"),
+        table,
+        Text(f"Total : Rs.{Total}/-", style="bold green", justify="right"),
+        line("bright_magenta"),
+        Text("--- Thank You Visit Again ---", style="bold green", justify="center"),
+        line("bright_magenta"),
+        Text(f"{quote}", style="bold yellow", justify="center"),
+        line("bright_magenta")
+        )
+    console.print(Panel(content, box=box.DOUBLE, border_style="#00BFFF on #D6EAFF",padding=(1,1), width=console.width - 2))
+    
+    # table.add_column("Sr.", justify="center",style="cyan",width=5)
+    # table.add_column("Unique Code", justify="center",style="cyan",width=13)
+    # table.add_column("Name Of Books", justify="center",style="cyan",width=40)
+    # table.add_column("Author Name", justify="center",style="cyan",width=30)
+    # table.add_column("Price", justify="center",style="cyan",width=5)
+    # table.add_column("Quantity", justify="center",style="cyan",width=5)
+    # table.add_column("Total", justify="center",style="cyan",width=7)
+
+    # for i in range(len(code)):
+    #     table.add_row(
+    #         str(i+1),
+    #         str(code[i]),
+    #         str(bookname[i])[:40],
+    #         str(author[i])[:30],
+    #         str(price[i]),
+    #         str(quantity[i]),
+    #         str(total[i])
+    #     )
+
+
+    # bill_panel = Panel(table,title="[bold blue]📚   DIGITAL LIBRARY OF NAVI MUMBAI   📚[/]",
+    #                    subtitle="[bold red]( By MJJ-TechWorld )[/]",
+    #                    border_style="bright_yellow",
+    #                    box=box.DOUBLE_EDGE,
+    #                    padding=(1,1),
+    #                    title_align="center",
+    #                    subtitle_align="center"
+    #                    )
+
+    # console.print()
+    # console.print(bill_panel)
+    # console.print(f"[bold green]Total : {Total}/- [/]", justify="right")
+    # console.print(Panel("[blue]--- Thank You Visit Again ---[/]", border_style="magenta", box=box.HEAVY,width=50),justify="center")
+
+    #             #   bill_tiltle2 = ,title = "",
+    
+
+def buy_book():
+    code_list,bookname_list,author_list,price_list,quantity_list,total_list = [],[],[],[],[],[]
+    while True:
+        value = False
+        decor_line()
+        head_color("---Buy Book(s)---\n")
+        uc = user_input("Enter Unique Code Of Book : ").upper()
+        wb = load_workbook(books_data_path)
+        for sheet in wb.sheetnames:
+            s = wb[sheet]
+            for row in s.iter_rows(min_row=2,values_only=True):
+                if uc == str(row[1]).strip():
+                    correct_message(f"{row[2]} : By {row[3]} : Rs.{row[7]} : Avail. {row[9]}\n")
+                    avail_q = row[9]
+                    bookname = row[2]
+                    author = row[3]
+                    price = row[7]
+
+                    value = True
+
+        wb.save(books_data_path)
+
+        if value:
+            while True:
+                value = False
+                quantity = user_input("Enter quantity of this book : ")
+                if int(quantity) <= int(avail_q) :
+                    correct_message("Book Sold Successfully!")
+
+                    code_list.append(uc)
+                    bookname_list.append(bookname)
+                    author_list.append(author)
+                    price_list.append(price)
+                    quantity_list.append(quantity)
+                    total_list.append(int(price)*int(quantity))
+                    
+                    wb = load_workbook(books_data_path)
+                    for sheet in wb.sheetnames:
+                        s = wb[sheet]
+                        for row in s.iter_rows(min_row=2,values_only=False):
+                            if row[1].value == uc:
+                                row[9].value = int(row[9].value) - int(quantity)
+                    wb.save(books_data_path)
+
+                    while True:
+                        head_color("Want to buy more book(s)?\n")
+                        text_color("\t1.Yes")
+                        text_color("\t2.No")
+
+                        sel_option = ask_option_number()
+
+                        if sel_option == "1":
+                            break
+
+                        elif sel_option == "2":
+                            create_bill(code_list,bookname_list,author_list,price_list,quantity_list,total_list)
+                            break
+
+                        else:
+                            option_error()
+                    break
+                elif int(quantity) <= 0:
+                    error_message("Please enter valid quantity")
+                else:
+                    error_message("Insufficient quantity of book available!")
+        else:
+            error_message("Book Not Found!") 
+
+
+
+def choose_option():
+    while True:
+        decor_line()
+        head_color("Available Options :\n")
+
+        info_message("\t1. Want to check unique code of book once ?")
+        info_message("\t2. Buy book(s) directly\n")
+
+        sel_option = user_input("Enter option number to proceed further : ")
+
+        if sel_option == "1":
+            search_book()
+            break
+
+        if sel_option == "2":
+            buy_book()
+            break
+        else:
+            error_message("Please enter valid option number from given options!")
+
+
+def change_rate():
+    wb = load_workbook(books_data_path)
+    for sheet in wb.sheetnames:
+        s = wb[sheet]
+        for row in s.iter_rows(min_row=2,values_only=False):
+            if row[6].value is None:
+                continue
+            row[6].value = int((int(row[7].value)) - int((int(row[7].value) * 30)/100))
+            row[8].value = int((int(row[7].value) * 30)/100)
+    wb.save(books_data_path)  
+
+
+
+# print(emoji.emojize(":bank:"))
+
+# wb = load_workbook(books_data_path)
+# for sheet in wb.sheetnames:
+#     s = wb[sheet]
+#     for row in s.iter_rows(min_row=2,values_only=False):
+#         if row[9].value is None:
+#             continue
+
+#         if isinstance(row[9].value, (int,float)) and row[9].value < 0:
+#             row[9].value = abs(row[9].value)
+
+#         if row[9].value < 0:
+#             row[9].value = 5
+
+#         if row[9].value == 0:
+#             row[9].value = 4
+
+#         if row[9].value == 1:
+#             row[9].value = 6
+
+#         if row[9].value == 2:
+#             row[9].value = 3
+
+# wb.save(books_data_path)
+
+
+
+decor_line()
+head_color("Actions Available :\n")
+text_color("\t1. Search book(s)")
+text_color("\t2. Buy book(s)")
+text_color("\t3. Exit")
+
+while True:
+    decor_line()    
+    select_option = user_input("Enter option number from options : ")
+
+    if select_option == "1":
+        search_book()
+        break
+    if select_option == "2":
+        buy_book()
+        break
+
+    if select_option == "3":
+        break
+
+    else:
+        error_message("Please enter valid option nuber from above give options")
+
+# def check_book_name():
+#     while True:
+#         print(decor2)
+#         book_name = input(text_color + "Enter name of book : ").strip().lower()
+#         value =  False # Initialising
+
+#         wb = load_workbook(books_data_path, data_only=True)
+#         for s in wb.worksheets:
+#             for row in s.iter_rows(min_row=2,values_only=True):
+#                 if book_name in str(row[2]).strip().lower():
+#                     print(decor2)
+#                     print(f"{row[1]} : {s.capitalize()} : {row[2]} : By {row[3]} : Avail {row[7]} : Rs{row[8]}")
+#                     value = True
+        
+#         if value:
+#             print(decor2)
+#             break
+#         else : 
+#             print(f"\n{error_color}⚠️  Book(s) with this name Not Found ! \n")
