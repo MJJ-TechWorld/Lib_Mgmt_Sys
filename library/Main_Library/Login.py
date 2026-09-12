@@ -1,8 +1,10 @@
 #============  Backend =================
 
-#*** WELCOME TO DIGITAL LIBRARY OF NAVI MUMBAI ***
+# *** WELCOME TO DIGITAL LIBRARY OF NAVI MUMBAI ***
 
-
+#-----------------------------------------
+# Initialising important paths
+#-----------------------------------------
 emp_data_path = r"C:\Users\HP\Desktop\training\Python\library\Library_Data\Employee_details.csv"
 books_data_path = r"C:\Users\HP\Desktop\training\Python\library\Library_Data\Books_Data.xlsx"
 data_path = r"C:\Users\HP\Desktop\training\Python\Library\library_Data\Data.xlsx"
@@ -46,26 +48,19 @@ align_centre = Alignment(horizontal='center', vertical='center')
 def underline(text):
     """
     Gives underline to the text.
-
-    Args:
-        text: Text to be display in underline.
-    
-    Returns:
-        underlines the text given as parameter. 
+    Args:text: Text to be display in underline.
+    Returns:underlines the text given as parameter. 
     """
     return f"\033[4m{text}\033[0m"
 
 #------------------------------------------------
-#  1) Fn of displaying title :
+#  Fn of displaying login title :
 #------------------------------------------------
 
 def login_title():
     """Display attractive title of login portal."""
     a = Back.LIGHTCYAN_EX + "     "
-    r = Fore.GREEN + Style.BRIGHT
-    b = Fore.BLUE + Style.BRIGHT + Back.LIGHTYELLOW_EX
-    re = Fore.RED  + Back.LIGHTMAGENTA_EX
-    s = " "*101
+    r,b,re,s = Fore.GREEN + Style.BRIGHT,Fore.BLUE + Style.BRIGHT + Back.LIGHTYELLOW_EX,Fore.RED  + Back.LIGHTMAGENTA_EX," "*101
     d,t1,T1,t2,t3,t4 = "*"*50,"="*91," "*85,"💻    DIGITAL LIBRARY     💻","OF","🗺️      NAVI MUMBAI       🗺️"
     t5 = "( By MJJ-TECHWORLD )"
 
@@ -141,23 +136,16 @@ def check_username(u):
             print(f"\n{error_color}⚠️  Invalid Username \n")
         
     except FileNotFoundError:
-        print(Fore.RED + Style.BRIGHT + "\n⚠️ Please ensure that you had also cloned 'Library Data' folder from program link ⚠️")
-        print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
-
+        filenoterror()
 #------------------------------------------------
 
 def check_password(u,p): 
     """
     Check the password whether it is in record with accordance with its username or not.
-    
     Takes username & password as parameters and check accordingly.
-
-    Args:
-        u : Username of employee who have access to this program.
-        p : Password of employee with registered username as well.
-
-    Returns:
-        str: "yes" for correct password, "no" for incorrect password.
+    Args:u : Username of employee who have access to this program.
+         p : Password of employee with registered username as well.
+    Returns:str: "yes" for correct password, "no" for incorrect password.
     """
     try: 
         with open(emp_data_path, "r") as file:
@@ -171,116 +159,17 @@ def check_password(u,p):
             print(f"\n{error_color}⚠️  Wrong Password \n")
         
     except FileNotFoundError:
-        print(Fore.RED + Style.BRIGHT + "\n⚠️ Please ensure that you had also cloned 'Library Data' folder from program link ⚠️")
-        print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
- 
-#------------------------------------------------
+        filenoterror()
 
 #------------------------------------------------
-#  4) Fn to check password :
-#------------------------------------------------
-
-
-#------------------------------------------------
-#  ) Fn for taking and checking first name :
-#------------------------------------------------
-
-def notice(path):
-    print(Fore.BLUE + Style.BRIGHT + "🆕  NOTICE","\n")
-    with open(path) as f:
-        data = f.read()
-        print(Fore.GREEN + data[:101])
-        print(Fore.GREEN + data[101:201])
-        print(Fore.GREEN + data[201:301])
-        print(decor3)
-#------------------------------------------------
-#  ) Fn for taking and checking first name :
-#------------------------------------------------
-
-def instruction():
-    a = "Type 'backp' and press Enter to go to main portal directly."
-    b = "Type 'exitp' and press Enter to exit the program"
-    print(decor3)
-    print(f"{info_color}{underline('✯  Instructions  ✯')} : \n")
-    print(Fore.YELLOW + f"\t☞ Back : {a} ")
-    print(Fore.YELLOW + f"\t☞ Back : {b} \n")
-    print(decor3)
-
-def main_portal():
-    interface_title()
-    display_actions()
-
-def backp(p):
-    if p.strip().lower() == "backp":
-        main_portal()
-
-def exitp(p):
-    if p.strip().lower() == "exitp":
-        exit()
-#------------------------------------------------
-#  ) Fn for taking and checking first name :
-#------------------------------------------------
-def create_renter_detail():
-    """
-    Take first name, last name and phone number from users, clear them and check according to need.
-
-    Returns:
-        list: 0 or 1 if all details are correct, first_name, last_name, phone_number of renter
-    """
-
-    a,b,c = 0,0,0 # Initializing
-    while True:
-        print(decor2)
-        first_name = input(text_color + "Enter first name of renter : ").strip().lower().title()
-
-        if first_name.isalpha() == True:
-            print(f"\n{noerror_color}✅  First Name Verified : {first_name}\n")
-            a = 1
-            break
-
-        else:
-            print(f"\n{error_color}⚠️  Please enter valid name\n")           
-
-    if a == 1:
-        while True:
-            print(decor2)
-            last_name = input(text_color + "Enter last name of renter : ").strip().lower().title()
-
-            if last_name.isalpha() == True:
-                print(f"\n{noerror_color}✅  Last Name Verified : {last_name}\n")
-                b = 1
-                break
-
-            else:
-                print(f"\n{error_color}⚠️  Please enter valid name\n")
-
-    if b == 1:
-        while True:
-            print(decor2)
-            phone_number = input(text_color + "Enter Phone Number of renter : ")
-
-            if ( phone_number.isdigit() and len(phone_number) == 10 ):
-                print(f"\n{noerror_color}✅  Phone Number Verified : {phone_number}\n")
-                c = 1
-                break
-            
-            else:
-                print(f"\n{error_color}⚠️  Please enter valid phone number\n")
-
-    return [c,first_name,last_name,phone_number]
-
-#------------------------------------------------
-#  5) Fn to create title of interface :
+#  Fn to create title of interface :
 #------------------------------------------------
 
 def interface_title():
     """Creates attractice title of main interface after logged in."""
     print(decor2, "\n")
-    color0 = Fore.YELLOW
-    color1 = Fore.GREEN
-    color2 = Fore.CYAN
-    color3 = Fore.MAGENTA
-    decor = "*"*36
+    color0,color1,color2,color3,decor = Fore.YELLOW,Fore.GREEN,Fore.CYAN,Fore.MAGENTA,"*"*36
+
     print(Fore.CYAN + 
     f'''                        \t╔══════════════════════════════════════════════╗
                         \t║                                              ║
@@ -293,19 +182,38 @@ def interface_title():
                         \t║        {color2}                                      ║
                         \t╚══════════════════════════════════════════════╝''')
 
-    
 #------------------------------------------------
-#   ) Fn to display actions' options :
+#  Fn for displaying instructions and notices :
+#------------------------------------------------
+
+def instruction():
+    # a = "Type 'backp' and press Enter to go to main portal directly."
+    b = "Type 'exitp' and press Enter to exit the program"
+    print(decor3)
+    print(f"{info_color}{underline('✯  Instructions  ✯')} : \n")
+    # print(Fore.YELLOW + f"\t☞ Back : {a} ")
+    print(Fore.YELLOW + f"\t☞ Exit : {b} \n")
+    print(decor3)
+
+def notice(path):
+    print(Fore.BLUE + Style.BRIGHT + "🆕  NOTICE","\n")
+    with open(path) as f:
+        data = f.read()
+        print(Fore.GREEN + data[:101])
+        print(Fore.GREEN + data[101:201])
+        print(Fore.GREEN + data[201:301])
+        print(decor3)
+
+
+#------------------------------------------------
+#  Fn to display actions' options :
 #------------------------------------------------
 
 def display_actions():
     """
     Displays actions to be proceed by taking option number as input in str.
-
     According to option number given by user, it calls to specific functions regarding to it.
-
-    Returns:
-        None
+    Returns:None
     """
     print(f"{info_color}{underline('Available actions')} : \n")
     print(f"\t{noerror_color}1. Search for Unique Code of Book(s) ?")
@@ -346,26 +254,95 @@ def display_actions():
         else :
             print(f"\n{error_color} ⚠️ Please Enter Correct Option Number (ex. 1 or 2)!\n")
 
-#------------------------------------------------
-#   ) Fn to check uc by name of book :
-#------------------------------------------------
+#--------------------------------------------------
+# Fn for displaying main portal after calling backp
+#--------------------------------------------------
 
-def quotes():
-    good_quotes = ["Books are uniquely portable magic",
-                   "Today a reader,tomorrow a leader",
-                   "Read what you love until you love to read"
-                   "There is no friend as loyal as a book",
-                   "A book dream is a dream that you hold in your hand"]
-    print(Fore.MAGENTA + Style.BRIGHT + random.choice(good_quotes))
+def main_portal():
+    interface_title()
+    display_actions()
 
 #------------------------------------------------
-#   ) Fn to check uc by name of book :
+#  Fn for shortcuts of exit and back options:
+#------------------------------------------------
+
+def backp():
+        print(f"{info_color}Session Expired!")
+        print(decor2)
+        main_portal()
+
+def exitp(p):
+    if p.strip().lower() == "exitp":
+        print(decor2)
+        print(f"{info_color}Program Exited!")
+        print(decor2)
+        exit()
+
+
+#------------------------------------------------
+#  Fn for creating renter's details :
+#------------------------------------------------
+
+def create_renter_detail():
+    """
+    Take first name, last name and phone number from users, clear them and check according to need.
+    Returns:list: 0 or 1 if all details are correct, first_name, last_name, phone_number of renter
+    """
+
+    a,b,c = 0,0,0 # Initializing
+    while True:
+        print(decor2)
+        first_name = input(text_color + "Enter first name of renter : ").strip().lower().title()
+        exitp(first_name)
+
+        if first_name.isalpha() == True:
+            print(f"\n{noerror_color}✅  First Name Verified : {first_name}\n")
+            a = 1
+            break
+
+        else:
+            print(f"\n{error_color}⚠️  Please enter valid name\n")           
+
+    if a == 1:
+        while True:
+            print(decor2)
+            last_name = input(text_color + "Enter last name of renter : ").strip().lower().title()
+            exitp(last_name)
+
+            if last_name.isalpha() == True:
+                print(f"\n{noerror_color}✅  Last Name Verified : {last_name}\n")
+                b = 1
+                break
+
+            else:
+                print(f"\n{error_color}⚠️  Please enter valid name\n")
+
+    if b == 1:
+        while True:
+            print(decor2)
+            phone_number = input(text_color + "Enter Phone Number of renter : ").strip()
+            exitp(phone_number)
+
+            if ( phone_number.isdigit() and len(phone_number) == 10 ):
+                print(f"\n{noerror_color}✅  Phone Number Verified : {phone_number}\n")
+                c = 1
+                break
+            
+            else:
+                print(f"\n{error_color}⚠️  Please enter valid phone number\n")
+
+    return [c,first_name,last_name,phone_number]
+
+#------------------------------------------------
+#   Fn to check uc by name of book :
 #------------------------------------------------
 
 def check_book_name():
     while True:
         print(decor2)
         book_name = input(text_color + "Enter name of book : ").strip().lower()
+        print(decor2)
+        exitp(book_name)
 
         value =  False # Initialising
 
@@ -379,18 +356,21 @@ def check_book_name():
         
         if value:
             print(decor2)
+            main_portal()
             break
         else : 
             print(f"\n{error_color}⚠️  Book(s) with this name Not Found ! \n")
 
 #------------------------------------------------
-#   ) Fn to check uc by author name of book :
+#   Fn to check uc by author name of book :
 #------------------------------------------------
 
 def check_author_name():
     while True:
         print(decor2)
         author_name = input(text_color + "Enter author name of book : ").strip().lower()
+        print(decor2)
+        exitp(author_name)
 
         value =  False # Initialising
 
@@ -404,12 +384,13 @@ def check_author_name():
             
         if value:
             print(decor2)
+            main_portal()
             break
         else : 
             print(f"\n{error_color} ⚠️  Book(s) with this name Not Found \n")
 
 #------------------------------------------------
-#   ) Fn to check uc by publishing date of book :
+#   Fn to check uc by publishing date of book :
 #------------------------------------------------
 
 def check_publish_date():
@@ -417,6 +398,7 @@ def check_publish_date():
         print(decor2)
         publish_date = input(text_color + "Enter publishing date of book in format 'dd-mm-yy' : ").strip().lower()
         print(decor2)
+        exitp(publish_date)
 
         value = False
 
@@ -430,20 +412,43 @@ def check_publish_date():
         
         if value:
             print(decor2)
+            main_portal()
             break
         else : 
             print(f"\n{error_color} ⚠️  Book(s) with this 'Date Of Publish' Not Found \n")
 
 #------------------------------------------------
-#   ) Fn to check uc by publishing date of book :
+#   ) Fn for displaying genres in excel in proper format :
+#------------------------------------------------
+
+def display_genres():
+    try : 
+        print(decor2, "\n")
+        wb = load_workbook(books_data_path)
+        sheet_names = wb.sheetnames
+        for i in sheet_names:
+            if sheet_names.index(i) % 2 == 0:
+                print(f"   {info_color}{i:<50}|", end = "")
+            else:
+                print(f"{info_color}{i:>50}")
+
+        print("\n", decor2)
+
+    except FileNotFoundError:
+        filenoterror()
+
+#------------------------------------------------
+#  Fn to check uc by genre of book :
 #------------------------------------------------
 
 def check_genre_book():
+
     display_genres()
     while True:
         print(decor2)
         genre_books = input(text_color + "Enter genre of desire book from above table : ").strip().lower()
         print(decor2)
+        exitp(genre_books)
 
         value = False
 
@@ -457,13 +462,13 @@ def check_genre_book():
         
         if value:
             print(decor2)
+            main_portal()
             break
         else : 
             print(f"\n{error_color} ⚠️  Book(s) with this genre Not Found \n")
 
-
 #------------------------------------------------
-#   ) Fn to rent book by searching other factors first then unique code :
+#  Fn to rent book by searching other factors first then unique code :
 #------------------------------------------------
 
 def search_uc():
@@ -478,6 +483,7 @@ def search_uc():
 
         print(decor2)
         sel_option = input("Select option to proceed further : ").strip()
+        exitp(sel_option)
 
         if sel_option == "1":
             check_book_name()
@@ -503,8 +509,9 @@ def rent_by_uc():
     s = " "*35
     while True:
         print(decor2)
-        unique_code = input(f"{text_color}Enter the unique code of desire book : ")
+        unique_code = input(f"{text_color}Enter the unique code of desire book : ").strip()
         print(decor2)
+        exitp(unique_code)
 
         details = []
         wb = load_workbook(books_data_path)
@@ -523,8 +530,8 @@ def rent_by_uc():
             print(f"\n{error_color}⚠️ Book with this unique code not found !\n")
 
 #------------------------------------------------
-#   ) Fn to ask to rent more books or not :
-# #------------------------------------------------
+#  Fn to ask to rent more books or not :
+#------------------------------------------------
 
 def ask_add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
     print(f"{info_color}{underline('Want to rent more books ?')}\n")
@@ -542,13 +549,14 @@ def ask_add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
         if sel_option == "2":
             print(decor2)
             bill_printer(fn,ln,pn,cl,bl,al,Cl,tl,t,r)
+            main_portal()
             break
 
         else :
             print(f"\n{error_color} ⚠️ Please Enter Correct Option Number (ex. 1 or 2)!\n")
 
 #------------------------------------------------
-#   ) Fn to rent more books : 
+#  Fn to rent books for premium members : 
 #------------------------------------------------
 
 def add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r="NO"):
@@ -563,6 +571,7 @@ def add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r="NO"):
         print(decor2)
         unique_code = input(f"{text_color}Enter the unique code of desire book : ")
         print(decor2)
+        exitp(unique_code)
 
         details = []
         wb = load_workbook(books_data_path)
@@ -579,6 +588,7 @@ def add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r="NO"):
                 print(decor2)
                 tenure = input(text_color + "Enter borrowing period days : ")
                 print(decor2)
+                exitp(tenure)
 
                 if tenure.isdigit() == True:
                     b = 1
@@ -623,7 +633,6 @@ def add_more(fn,ln,pn,cl,bl,al,Cl,tl,t,r="NO"):
             break
         else:
             print(f"\n{error_color}⚠️ Book with this unique code not found !\n")
-
 
 #------------------------------------------------
 #   ) Fn to record details of book rented : 
@@ -686,31 +695,28 @@ def record_rent_book_detail(uc):
 #------------------------------------------------
 
 def bill_printer(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
-
-    bill_tiltle1 = "📚   DIGITAL LIBRARY OF NAVI MUMBAI   📚"
-    bill_tiltle2 = "( By MJJ-TechWorld )"
-    l1 = "Name Of Books"
-    l2 = "Name Of Authors"
-    l3 = "Charges/"
-    l4 = "Tenure"
-    l5 = "Total"
     tc = Fore.YELLOW
-    l6 = f"{text_color}Date: {tc}{datetime.today().strftime('%d-%m-%Y')}"
-    name = f"{fn} {ln}"
-    l7 = f"{text_color}Have membership ? {tc}{r}"
-    l8 = f"{Fore.BLUE}--- Thank You Visit Again ---"
     title_text1 = Fore.BLUE
     title_text2 = Fore.RED 
     line = Fore.CYAN
     d = line + "║"
+
+    bill_tiltle1 = "📚   DIGITAL LIBRARY OF NAVI MUMBAI   📚"
+    bill_tiltle2 = "( By MJJ-TechWorld )"
+
+    l1,l2,l3,l4,l5 = "Name Of Books","Name Of Authors","Charges/","Tenure","Total"
+    l7 = f"{text_color}Have membership ? {tc}{r}"
+    l8 = f"{Fore.BLUE}--- Thank You Visit Again ---"
+    l6 = f"{text_color}Date: {tc}{datetime.today().strftime('%d-%m-%Y')}"
+    name = f"{fn} {ln}"
+
     good_quotes = ["'Books are uniquely portable magic'",
                    "'Today a reader,tomorrow a leader'",
                    "'Read what you love until you love to read'"
                    "'There is no friend as loyal as a book'",
                    "'A book dream is a dream that you hold in your hand'"]
+
     q = Fore.YELLOW + Style.BRIGHT + random.choice(good_quotes)
-
-
 
     total = 0
     if r == "NO":
@@ -741,7 +747,6 @@ def bill_printer(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
     for i in range(len(cl)):
         print(f"{d} {i+1:^3}.{d} {cl[i]:^12}{d}{bl[i][:36]:^36}{d}{al[i][:25]:^25}{d}{Cl[i][:9]:^9}{d}{tl[i]:^6}{d}{t[i]:^7} {d}")
 
-    
     print(d,Fore.YELLOW + " "*108,d, sep = "")
     print(d,Fore.YELLOW + "="*108,d, sep = "")
     print(d," "*86,f"{Fore.GREEN}{Style.BRIGHT}Total : Rs {total:^7}/-  ",   d,sep = "")
@@ -750,11 +755,10 @@ def bill_printer(fn,ln,pn,cl,bl,al,Cl,tl,t,r):
     print(d,f"{l8:^113}",d,sep = "")
     print(d,Fore.MAGENTA + "*"*108,d, sep = "")
     print(d,f"{q:^117}",d, sep = "")
-
     print(line + "╚",line + "═"*108,line + "╝", sep = "")
 
 #------------------------------------------------
-#   ) Fn to call functions after login : 
+#   ) Fn to rent books for premium members : 
 #------------------------------------------------
 
 def premium_mem():
@@ -762,6 +766,7 @@ def premium_mem():
     while True:
         print(decor2)
         first_name = input(text_color + "Enter first name of member : ").strip().lower().title()
+        exitp(first_name)
 
         if first_name.isalpha() == True:
             a = 1
@@ -774,6 +779,7 @@ def premium_mem():
         while True:
             print(decor2)
             last_name = input(text_color + "Enter last name of renter : ").strip().lower().title()
+            exitp(last_name)
 
             if last_name.isalpha() == True:
                 b = 1
@@ -804,6 +810,7 @@ def premium_mem():
             while True:
                 print(decor2)
                 phone_number = input(text_color + "Enter Phone Number From above table : ")
+                exitp(phone_number)
 
                 if ( phone_number == pn):
 
@@ -828,7 +835,7 @@ def premium_mem():
         add_more(first_name,last_name,phone_number,cl,bl,al,Cl,tl,t,r="YES")
 
 #------------------------------------------------
-#   ) Fn to call functions after login : 
+#  Fn to return books for rental and premium customers : 
 #------------------------------------------------
 
 def return_books(m):
@@ -836,6 +843,8 @@ def return_books(m):
     while True:
             print(decor2)
             first_name = input(text_color + "Enter first name of returner : ").strip().lower().title()
+            print(decor2)
+            exitp(first_name)
     
             if first_name.isalpha() == True:
                 a = 1
@@ -848,6 +857,8 @@ def return_books(m):
         while True:
             print(decor2)
             last_name = input(text_color + "Enter last name of returner : ").strip().lower().title()
+            print(decor2)
+            exitp(last_name)
     
             if last_name.isalpha() == True:
                 b = 1
@@ -874,20 +885,25 @@ def return_books(m):
         while True:
             print(decor2)
             phone_number = input(text_color + "Enter Phone Number From above table : ")
+            exitp(phone_number)
 
             if ( int(phone_number) == int(pn)):
                 print(decor2)
                 print(f"\n{info_color} Books remaining to be returned : \n")
+
                 wd = load_workbook(data_path, data_only=False)
                 sheet = wd[m]
                 for row in sheet.iter_rows(min_row=2):
                     if str(row[11].value) == "NO":
                         print(Fore.YELLOW + row[2].value,  row[3].value)
                 print(decor2)
+
                 print(f"{info_color}{underline('Important Instructions')}\n")
                 print(f"\t{noerror_color}You can write multiple unique codes separated by commas.")
                 print(f"\t{noerror_color}Example: MYTH10001, NOV10001\n")
                 rbooks = input(text_color + "Enter unique codes of books in given format : ")
+                exitp(rbooks)
+
                 books = rbooks.replace(" ","")
                 book_list = books.split(",")
                 for book in book_list:
@@ -913,11 +929,13 @@ def return_books(m):
 
                 if len(updated_books) == 0:
                     print(f"\n{noerror_color}✅  Nothing Updated already marked yes!\n")
+                    main_portal()
 
                 if len(nf) > 0:
                     er =str(nf).replace("[","")
                     er = er.replace("]","")
                     print(f"\n{error_color}⚠️  Note that book with uc : {er} not found !\n")
+                    main_portal()
 
                 break
             else:
@@ -925,7 +943,7 @@ def return_books(m):
 
 
 #------------------------------------------------
-#   ) Fn to call functions after login : 
+#  Fn to modify data in excel according to books rented or returned : 
 #------------------------------------------------
 
 def mod_books(l,s,r):
@@ -941,9 +959,10 @@ def mod_books(l,s,r):
                     elif r == "YES":
                         row[7].value = int(row[7].value) + 1
         wd.save(books_data_path)
+        main_portal()
 
 #------------------------------------------------
-#   ) Fn to call functions after login : 
+#  Fn to call functions after login : 
 #------------------------------------------------
 
 def after_login_display():
@@ -953,7 +972,7 @@ def after_login_display():
     display_actions()
 
 #------------------------------------------------
-#   ) Fn for actual login portal
+# Fn for starting program :
 #------------------------------------------------
 
 def start_program():
@@ -961,29 +980,6 @@ def start_program():
     if login_display() == 1:
         after_login_display()
         
-#------------------------------------------------
-#   ) Fn for displaying genres in excel in proper format :
-#------------------------------------------------
-
-def display_genres():
-    try : 
-        global sheet_names
-        print(decor2, "\n")
-
-        wb = load_workbook(r'C:\Users\HP\Desktop\training\Python\Library\Library_Data\Books_Data.xlsx')
-        sheet_names = wb.sheetnames
-        for i in sheet_names:
-            if sheet_names.index(i) % 2 == 0:
-                print(f"   {info_color}{i:<50}|", end = "")
-            else:
-                print(f"{info_color}{i:>50}")
-
-        print("\n", decor2)
-
-    except FileNotFoundError:
-        print(Fore.RED + Style.BRIGHT + "\n⚠️ Please ensure that you had also cloned 'Library Data' folder from program link ⚠️")
-        print(Fore.RED + Style.BRIGHT + "⚠️ Please change the default paths to the actual paths where you have saved Library Data folder, in the variable at line 12 \n")
-
 #==================================================================================================
 # Calling functions : 
 #--------------------
